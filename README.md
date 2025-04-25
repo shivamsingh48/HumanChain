@@ -4,6 +4,26 @@ This project implements a simple RESTful API service to log and manage hypotheti
 
 ---
 
+## Quick Links
+- [Technology Stack](#technology-stack)
+- [Features](#features)
+- [API Endpoints](#api-endpoints)
+  - [GET /incidents](#1-get-incidents)
+  - [POST /incidents](#2-post-incidents)
+  - [GET /incidents/{id}](#3-get-incidentsid)
+  - [DELETE /incidents/{id}](#4-delete-incidentsid)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Database Setup](#database-setup)
+  - [Running the API](#running-the-api)
+- [Examples of API Usage](#examples-of-api-usage)
+  - [Using curl](#using-curl)
+- [Challenges and Design Decisions](#challenges-and-design-decisions)
+
+---
+
 ## Technology Stack
 - **Language**: JavaScript (Node.js)
 - **Framework**: Express.js
@@ -154,10 +174,4 @@ curl -X DELETE http://localhost:3000/incidents/1
 
 ---
 
-## License
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
----
-
-Feel free to modify and adapt this API to fit your needs!
 
