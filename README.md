@@ -8,10 +8,10 @@ This project implements a simple RESTful API service to log and manage hypotheti
 - [Technology Stack](#technology-stack)
 - [Features](#features)
 - [API Endpoints](#api-endpoints)
-  - [GET /incidents](#1-get-incidents)
-  - [POST /incidents](#2-post-incidents)
-  - [GET /incidents/{id}](#3-get-incidentsid)
-  - [DELETE /incidents/{id}](#4-delete-incidentsid)
+  - [GET /api/v1/incidents/getAllIncidents](#1-get-api-v1-incidents-getallincidents)
+  - [POST /api/v1/incidents/logIncident](#2-post-api-v1-incidents-logincident)
+  - [GET /api/v1/incidents/getIncidentById/:id](#3-get-api-v1-incidents-getincidentbyidid)
+  - [DELETE /api/v1/incidents/deleteIncident/:id](#4-delete-api-v1-incidents-deleteincidentid)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -21,6 +21,7 @@ This project implements a simple RESTful API service to log and manage hypotheti
 - [Examples of API Usage](#examples-of-api-usage)
   - [Using curl](#using-curl)
 - [Challenges and Design Decisions](#challenges-and-design-decisions)
+
 
 ---
 
@@ -42,7 +43,7 @@ This project implements a simple RESTful API service to log and manage hypotheti
 
 ## API Endpoints
 
-### 1. `GET /incidents`
+### 1. `GET /api/v1/incidents/getAllIncidents`
 - **Description**: Retrieve all incidents stored in the database.
 - **Response**:
   ```json
@@ -52,7 +53,7 @@ This project implements a simple RESTful API service to log and manage hypotheti
   ]
   ```
 
-### 2. `POST /incidents`
+### 2. `POST /api/v1/incidents/logIncident`
 - **Description**: Log a new incident in the database.
 - **Request Body**:
   ```json
@@ -74,7 +75,7 @@ This project implements a simple RESTful API service to log and manage hypotheti
   ```
 - **Validation**: Ensures `title`, `description`, and `severity` are provided, and `severity` is one of `Low`, `Medium`, or `High`.
 
-### 3. `GET /incidents/{id}`
+### 3. `GET /api/v1/incidents/getIncidentById/:id`
 - **Description**: Retrieve a specific incident by its ID.
 - **Response** (on success):
   ```json
@@ -88,7 +89,7 @@ This project implements a simple RESTful API service to log and manage hypotheti
   ```
 - **Error**: Returns `404 Not Found` if the ID does not exist.
 
-### 4. `DELETE /incidents/{id}`
+### 4. `DELETE /api/v1/incidents/deleteIncident/:id`
 - **Description**: Delete an incident by its ID.
 - **Response** (on success): `204 No Content` or a confirmation message.
 - **Error**: Returns `404 Not Found` if the ID does not exist.
@@ -119,7 +120,7 @@ This project implements a simple RESTful API service to log and manage hypotheti
 1. Create a `.env` file in the root directory with the following variables:
    ```env
    MONGO_URI=mongodb://localhost:27017/incident-log-api
-   PORT=3000
+   PORT=8000
    ```
 2. Replace `MONGO_URI` with your MongoDB connection string if using a cloud instance.
 
@@ -136,7 +137,7 @@ Start the server with:
 ```bash
 npm start
 ```
-The API will be available at `http://localhost:3000`.
+The API will be available at `http://localhost:8000`.
 
 ---
 
@@ -145,24 +146,24 @@ The API will be available at `http://localhost:3000`.
 ### Using `curl`
 #### Retrieve all incidents:
 ```bash
-curl -X GET http://localhost:3000/incidents
+curl -X GET http://localhost:8000/api/v1/incidents/getAllIncidents
 ```
 
 #### Create a new incident:
 ```bash
-curl -X POST http://localhost:3000/incidents \
+curl -X POST http://localhost:8000/api/v1/incidents/logIncident \
 -H "Content-Type: application/json" \
 -d '{"title":"Example Incident","description":"This is a test incident.","severity":"Medium"}'
 ```
 
 #### Retrieve a specific incident:
 ```bash
-curl -X GET http://localhost:3000/incidents/1
+curl -X GET http://localhost:8000/api/v1/incidents/getIncidentById/1
 ```
 
 #### Delete an incident:
 ```bash
-curl -X DELETE http://localhost:3000/incidents/1
+curl -X DELETE http://localhost:8000/api/v1/incidents/deleteIncident/1
 ```
 
 ---
@@ -173,5 +174,6 @@ curl -X DELETE http://localhost:3000/incidents/1
 - **Scalability**: Used MongoDB to handle potentially large datasets efficiently.
 
 ---
+
 
 
