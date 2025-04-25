@@ -1,0 +1,163 @@
+# AI Safety Incident Log API
+
+This project implements a simple RESTful API service to log and manage hypothetical AI safety incidents. It is designed to demonstrate backend development skills, including API design, data persistence, and request/response handling.
+
+---
+
+## Technology Stack
+- **Language**: JavaScript (Node.js)
+- **Framework**: Express.js
+- **Database**: MongoDB (with Mongoose ODM)
+
+---
+
+## Features
+- Create, retrieve, and delete AI safety incidents.
+- Basic input validation (e.g., allowed severity values).
+- Pre-populated database with sample incidents for testing.
+- Adherence to RESTful API principles.
+- Error handling for invalid requests and database issues.
+
+---
+
+## API Endpoints
+
+### 1. `GET /incidents`
+- **Description**: Retrieve all incidents stored in the database.
+- **Response**:
+  ```json
+  [
+    { "id": 1, "title": "...", "description": "...", "severity": "...", "reported_at": "..." },
+    { "id": 2, "title": "...", "description": "...", "severity": "...", "reported_at": "..." }
+  ]
+  ```
+
+### 2. `POST /incidents`
+- **Description**: Log a new incident in the database.
+- **Request Body**:
+  ```json
+  {
+    "title": "New Incident Title",
+    "description": "Detailed description here.",
+    "severity": "Medium"
+  }
+  ```
+- **Response** (on success):
+  ```json
+  {
+    "id": 3,
+    "title": "New Incident Title",
+    "description": "Detailed description here.",
+    "severity": "Medium",
+    "reported_at": "2025-04-02T18:00:00Z"
+  }
+  ```
+- **Validation**: Ensures `title`, `description`, and `severity` are provided, and `severity` is one of `Low`, `Medium`, or `High`.
+
+### 3. `GET /incidents/{id}`
+- **Description**: Retrieve a specific incident by its ID.
+- **Response** (on success):
+  ```json
+  {
+    "id": 1,
+    "title": "...",
+    "description": "...",
+    "severity": "...",
+    "reported_at": "..."
+  }
+  ```
+- **Error**: Returns `404 Not Found` if the ID does not exist.
+
+### 4. `DELETE /incidents/{id}`
+- **Description**: Delete an incident by its ID.
+- **Response** (on success): `204 No Content` or a confirmation message.
+- **Error**: Returns `404 Not Found` if the ID does not exist.
+
+---
+
+## Getting Started
+
+### Prerequisites
+1. **Node.js**: Install from [Node.js official site](https://nodejs.org).
+2. **MongoDB**: Set up a local or cloud instance (e.g., MongoDB Atlas).
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/incident-log-api.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd incident-log-api
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Configuration
+1. Create a `.env` file in the root directory with the following variables:
+   ```env
+   MONGO_URI=mongodb://localhost:27017/incident-log-api
+   PORT=3000
+   ```
+2. Replace `MONGO_URI` with your MongoDB connection string if using a cloud instance.
+
+### Database Setup
+To pre-populate the database with sample data:
+1. Run the seed script:
+   ```bash
+   node seed.js
+   ```
+2. Verify the database contains the sample incidents.
+
+### Running the API
+Start the server with:
+```bash
+npm start
+```
+The API will be available at `http://localhost:3000`.
+
+---
+
+## Examples of API Usage
+
+### Using `curl`
+#### Retrieve all incidents:
+```bash
+curl -X GET http://localhost:3000/incidents
+```
+
+#### Create a new incident:
+```bash
+curl -X POST http://localhost:3000/incidents \
+-H "Content-Type: application/json" \
+-d '{"title":"Example Incident","description":"This is a test incident.","severity":"Medium"}'
+```
+
+#### Retrieve a specific incident:
+```bash
+curl -X GET http://localhost:3000/incidents/1
+```
+
+#### Delete an incident:
+```bash
+curl -X DELETE http://localhost:3000/incidents/1
+```
+
+---
+
+## Challenges and Design Decisions
+- **Validation**: Implemented server-side validation to ensure robust data integrity.
+- **Error Handling**: Added descriptive error messages for missing or invalid requests.
+- **Scalability**: Used MongoDB to handle potentially large datasets efficiently.
+
+---
+
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+Feel free to modify and adapt this API to fit your needs!
+
